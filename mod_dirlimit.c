@@ -2,12 +2,21 @@
 #include "http_config.h"
 #include "http_protocol.h"
 #include "http_log.h"
+#include "http_request.h"
 #include "ap_config.h"
 #include "apr_hooks.h"
 #include "apr_strings.h"
 #include "apr_global_mutex.h"
 #include "apr_tables.h"
 #include "unixd.h"
+
+#ifdef AP_DECLARE_MODULE
+#define APACHE24
+#endif
+
+#ifdef APACHE24
+#define unixd_set_global_mutex_perms ap_unixd_set_global_mutex_perms
+#endif
 
 #define MAX_DIRNAME 64
 #define MAX_CONFIGS 128
